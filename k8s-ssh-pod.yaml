@@ -1,27 +1,38 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: ssh
+  labels:
+    app: ssh
 spec:
-  containers:
-    - name: ssh
-      image: corbinu/ssh-server
-      volumeMounts:
-        - name: home
-          mountPath: /mnt/home
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ssh
+  template:
+    metadata:
+      labels:
+        app: ssh
+    spec:
+      containers:
+        - name: ssh
+          image: corbinu/ssh-server
+          volumeMounts:
+            - name: senteval-results-claim
+              mountPath: /pv/senteval-results-claim
+            - name: ssh-key
+              mountPath: /root/ssh-key
+          ports:
+            - containerPort: 22
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cat /root/ssh-key/id_rsa.pub >> /root/.ssh/authorized_keys"]
+      volumes:
         - name: ssh-key
-          mountPath: /root/ssh-key
-      ports:
-        - containerPort: 22
-      lifecycle:
-        postStart:
-          exec:
-            command: ["/bin/sh", "-c", "cat /root/ssh-key/id_rsa.pub >> /root/.ssh/authorized_keys"]
-  volumes:
-    - name: home
-      hostPath:
-        path: /dfs/home
-    - name: ssh-key
-      secret:
-        secretName: my-ssh-public-key
-        defaultMode: 256
+          secret:
+            secretName: my-ssh-public-key
+            defaultMode: 256
+        - name: senteval-results-claim
+          persistentVolumeClaim:
+            claimName: senteval-results-claim
