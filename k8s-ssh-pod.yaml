@@ -20,6 +20,12 @@ spec:
           volumeMounts:
             - name: senteval-results-claim
               mountPath: /pv/senteval-results-claim
+            - name: fasttext-model-wiki-en-claim
+              mountPath: /pv/fasttext-model-wiki-en-claim
+            - name: fasttext-model-cc-en-claim
+              mountPath: /pv/fasttext-model-cc-en-claim
+            - name: fasttext-vectors-cc-en-claim
+              mountPath: /pv/fasttext-vectors-cc-en-claim
             - name: ssh-key
               mountPath: /root/ssh-key
           ports:
@@ -36,3 +42,12 @@ spec:
         - name: senteval-results-claim
           persistentVolumeClaim:
             claimName: senteval-results-claim
+        - name: fasttext-model-wiki-en-claim
+          persistentVolumeClaim:
+            claimName: fasttext-model-wiki-en-claim
+        - name: fasttext-model-cc-en-claim
+          persistentVolumeClaim:
+            claimName: fasttext-model-cc-en-claim
+        - name: fasttext-vectors-cc-en-claim
+          persistentVolumeClaim:
+            claimName: fasttext-vectors-cc-en-claim
