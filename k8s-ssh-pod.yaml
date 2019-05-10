@@ -26,6 +26,14 @@ spec:
               mountPath: /pv/fasttext-model-cc-en-claim
             - name: fasttext-vectors-cc-en-claim
               mountPath: /pv/fasttext-vectors-cc-en-claim
+            - name: nir-treccds2015-vectors
+              mountPath: /pv/nir-treccds2015-vectors
+            - name: parvecrestencoder
+              mountPath: /pv/parvecrestencoder
+            - name: sector-model-claim
+              mountPath: /pv/sector-model-claim
+            - name: sector-pubmed-model-claim
+              mountPath: /pv/sector-pubmed-model-claim
             - name: ssh-key
               mountPath: /root/ssh-key
           ports:
@@ -51,3 +59,15 @@ spec:
         - name: fasttext-vectors-cc-en-claim
           persistentVolumeClaim:
             claimName: fasttext-vectors-cc-en-claim
+        - name: nir-treccds2015-vectors
+          persistentVolumeClaim:
+            claimName: nir-treccds2015-vectors
+        - name: parvecrestencoder
+          persistentVolumeClaim:
+            claimName: parvecrestencoder
+        - name: sector-model-claim
+          persistentVolumeClaim:
+            claimName: sector-model-claim
+        - name: sector-pubmed-model-claim
+          persistentVolumeClaim:
+            claimName: sector-pubmed-model-claim
