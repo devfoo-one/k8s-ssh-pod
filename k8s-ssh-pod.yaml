@@ -34,8 +34,12 @@ spec:
               mountPath: /pv/sector-model-claim
             - name: sector-pubmed-model-claim
               mountPath: /pv/sector-pubmed-model-claim
+            - name: sector-pubmed-v3-model-claim
+              mountPath: /pv/sector-pubmed-v3-model-claim
             - name: ssh-key
               mountPath: /root/ssh-key
+            - name: ceph-nfs
+              mountPath: /pv/ceph-nfs
           ports:
             - containerPort: 22
           lifecycle:
@@ -71,3 +75,13 @@ spec:
         - name: sector-pubmed-model-claim
           persistentVolumeClaim:
             claimName: sector-pubmed-model-claim
+        - name: sector-pubmed-v3-model-claim
+          persistentVolumeClaim:
+            claimName: sector-pubmed-v3-model-claim
+        - name: ceph-nfs
+          flexVolume:
+            driver: ceph.rook.io/rook
+            fsType: ceph
+            options:
+              fsName: home
+              clusterNamespace: rook-ceph
