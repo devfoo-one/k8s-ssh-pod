@@ -18,29 +18,11 @@ spec:
         - name: ssh
           image: corbinu/ssh-server
           volumeMounts:
-            - name: senteval-results-claim
-              mountPath: /pv/senteval-results-claim
-            - name: fasttext-model-wiki-en-claim
-              mountPath: /pv/fasttext-model-wiki-en-claim
-            - name: fasttext-model-cc-en-claim
-              mountPath: /pv/fasttext-model-cc-en-claim
-            - name: fasttext-vectors-cc-en-claim
-              mountPath: /pv/fasttext-vectors-cc-en-claim
-            - name: nir-treccds2015-vectors
-              mountPath: /pv/nir-treccds2015-vectors
-            - name: parvecrestencoder
-              mountPath: /pv/parvecrestencoder
-            - name: sector-model-claim
-              mountPath: /pv/sector-model-claim
-            - name: sector-pubmed-model-claim
-              mountPath: /pv/sector-pubmed-model-claim
-            - name: sector-pubmed-v3-model-claim
-              mountPath: /pv/sector-pubmed-v3-model-claim
             - name: ssh-key
               mountPath: /root/ssh-key
             - name: ceph-nfs
               mountPath: /pv/ceph-nfs
-          ports:
+          ports: 
             - containerPort: 22
           lifecycle:
             postStart:
@@ -51,33 +33,6 @@ spec:
           secret:
             secretName: my-ssh-public-key
             defaultMode: 256
-        - name: senteval-results-claim
-          persistentVolumeClaim:
-            claimName: senteval-results-claim
-        - name: fasttext-model-wiki-en-claim
-          persistentVolumeClaim:
-            claimName: fasttext-model-wiki-en-claim
-        - name: fasttext-model-cc-en-claim
-          persistentVolumeClaim:
-            claimName: fasttext-model-cc-en-claim
-        - name: fasttext-vectors-cc-en-claim
-          persistentVolumeClaim:
-            claimName: fasttext-vectors-cc-en-claim
-        - name: nir-treccds2015-vectors
-          persistentVolumeClaim:
-            claimName: nir-treccds2015-vectors
-        - name: parvecrestencoder
-          persistentVolumeClaim:
-            claimName: parvecrestencoder
-        - name: sector-model-claim
-          persistentVolumeClaim:
-            claimName: sector-model-claim
-        - name: sector-pubmed-model-claim
-          persistentVolumeClaim:
-            claimName: sector-pubmed-model-claim
-        - name: sector-pubmed-v3-model-claim
-          persistentVolumeClaim:
-            claimName: sector-pubmed-v3-model-claim
         - name: ceph-nfs
           flexVolume:
             driver: ceph.rook.io/rook
