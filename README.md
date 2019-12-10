@@ -12,4 +12,8 @@ I use this to sftp into the cluster filesystem.
 
 ## Usage
 
+You can access the pod by connecting with ssh using the *root* user (`ssh -p <YOUR_ASSIGNED_NODE_PORT> root@<YOUR_SERVER_URL>`)
+
+or 
+
 You may now forward the ssh port to your local machine via `kubectl port-forward ssh 4444:22` and connect to it by using the *root* user (`ssh -p4444 root@localhost`).
