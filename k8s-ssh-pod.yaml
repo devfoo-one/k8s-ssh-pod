@@ -85,3 +85,22 @@ spec:
             options:
               fsName: home
               clusterNamespace: rook-ceph
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssh
+  labels:
+    app: ssh
+spec:
+  type: NodePort
+  ports:
+  - name: "22"
+    port: 22
+    # nodePort: ???  # dynamically set by k8 - you can set this value after assignment
+  selector:
+    app: ssh
+status:
+  loadBalancer: {}
